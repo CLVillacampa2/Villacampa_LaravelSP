@@ -1,30 +1,31 @@
 @extends('layout')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Student List</h2>
-        <a href="/students/create" class="btn btn-success">Add New Student</a>
+    <h2 class="mb-4 fw-bold">Student Directory</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Year Level</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Information Technology (IT)</td>
+                    <td>3rd Year</td>
+                    <td class="text-center">
+                        {{-- Using our components for View, Edit, and Delete --}}
+                        <x-action-button href="/students/show" color="info">View</x-action-button>
+                        <x-action-button href="/students/edit" color="warning">Edit</x-action-button>
+                        <x-action-button href="#" color="danger">Delete</x-action-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <table class="table table-hover border">
-        <thead class="table-dark">
-            <tr>
-                <th>Name</th>
-                <th>Course</th>
-                <th>Year Level</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>John Doe</td>
-                <td><span class="badge bg-info text-dark">BSIT</span></td>
-                <td>3rd Year</td>
-                <td class="text-center">
-                    <a href="/students/1" class="btn btn-sm btn-outline-primary">View</a>
-                    <a href="/students/1/edit" class="btn btn-sm btn-outline-warning">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 @endsection
