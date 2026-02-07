@@ -6,36 +6,53 @@
             <h4 class="mb-0">Add New Student</h4>
         </div>
         <div class="card-body">
-            <form action="/students">
+            {{-- This block only shows up if there is a validation error --}}
+            @if ($errors->any())
+                <div class="alert alert-danger shadow-sm">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('students.store') }}" method="POST">
+                @csrf 
+
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter full name">
+                    <label class="form-label fw-bold">First Name</label>
+                    <input type="text" name="first_name" class="form-control" placeholder="Enter first name" value="{{ old('first_name') }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Enter last name" value="{{ old('last_name') }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Student ID Number</label>
+                    <input type="text" name="student_id_number" class="form-control" placeholder="e.g. 2024-0001" value="{{ old('student_id_number') }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="email@example.com" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Course</label>
-                    <select class="form-select">
-                        <option selected disabled>Select Course</option>
-                        <option value="IT">Information Technology (IT)</option>
-                        <option value="CS">Computer Science (CS)</option>
-                        <option value="IS">Information Systems (IS)</option>
+                    <select name="course" class="form-select" required>
+                        <option value="" selected disabled>Select Course</option>
+                        <option value="BSIT" {{ old('course') == 'BSIT' ? 'selected' : '' }}>BSIT</option>
+                        <option value="BSCS" {{ old('course') == 'BSCS' ? 'selected' : '' }}>BSCS</option>
+                        <option value="BSIS" {{ old('course') == 'BSIS' ? 'selected' : '' }}>BSIS</option>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Year Level</label>
-                    <select class="form-select">
-                        <option selected disabled>Select Year</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-
-                <div class="d-grid gap-2">
+                <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-success">Save Student</button>
-                    <a href="/students" class="btn btn-light border">Back</a>
+                    <a href="{{ route('students.index') }}" class="btn btn-light border">Back</a>
                 </div>
             </form>
         </div>

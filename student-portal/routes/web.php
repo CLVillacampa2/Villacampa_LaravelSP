@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 // This is the home page route
+Route::resource('students', StudentController::class);
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -24,3 +26,13 @@ Route::get('/students/show', function () {
 Route::get('/students/edit', function () {
     return view('students.edit');
 })->name('students.edit');
+
+Route::resource('students', StudentController::class);
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+
+Route::post('/students', [StudentController::class, 'store'])->name('students.store');

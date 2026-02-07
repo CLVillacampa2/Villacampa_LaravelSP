@@ -6,34 +6,39 @@
             <h4 class="mb-0">Edit Student</h4>
         </div>
         <div class="card-body">
-            <form action="/students">
+            {{-- 1. Point action to the Update route and include the student ID --}}
+            <form action="{{ route('students.update', $student->id) }}" method="POST">
+                @csrf
+                {{-- 2. Laravel requires @method('PUT') for updates --}}
+                @method('PUT')
+
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Full Name</label>
-                    <input type="text" class="form-control" value="John Doe">
+                    <label class="form-label fw-bold">First Name</label>
+                    <input type="text" name="first_name" class="form-control" value="{{ $student->first_name }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" value="{{ $student->last_name }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Course</label>
-                    <select class="form-select">
-                        <option value="IT" selected>Information Technology (IT)</option>
-                        <option value="CS">Computer Science (CS)</option>
-                        <option value="IS">Information Systems (IS)</option>
+                    <select name="course" class="form-select">
+                        <option value="IT" {{ $student->course == 'IT' ? 'selected' : '' }}>Information Technology (IT)</option>
+                        <option value="CS" {{ $student->course == 'CS' ? 'selected' : '' }}>Computer Science (CS)</option>
+                        <option value="IS" {{ $student->course == 'IS' ? 'selected' : '' }}>Information Systems (IS)</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Year Level</label>
-                    <select class="form-select">
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3" selected>3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
+                    <label class="form-label fw-bold">Student ID Number</label>
+                    <input type="text" name="student_id_number" class="form-control" value="{{ $student->student_id_number }}">
                 </div>
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Update Student</button>
-                    <a href="/students" class="btn btn-light border">Cancel</a>
+                    <a href="{{ route('students.index') }}" class="btn btn-light border">Cancel</a>
                 </div>
             </form>
         </div>
